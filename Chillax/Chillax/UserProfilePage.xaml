@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Chillax.UserProfilePage"
+             Title="Chillax Bro"
+             BackgroundImageSource="yellowpuzzle.png">
+
+    <!-- Stack layout to fill the entire screen -->
+    <VerticalStackLayout Padding="20"
+                         VerticalOptions="FillAndExpand"
+                         HorizontalOptions="FillAndExpand"
+                         Spacing="20">
+
+        <!-- Add an animated logo with adjusted size -->
+        <!--<Image x:Name="ProfileImage" Source="Images/kulfi_bg.png"
+               HeightRequest="150"
+               WidthRequest="150"
+               VerticalOptions="Center"
+               HorizontalOptions="Center" />-->
+
+        <!-- Main Title -->
+        <Label Text="Welcome to Chillax!"
+               FontSize="36"
+               FontAttributes="Bold"
+               TextColor="#4B0082" 
+               FontFamily="OpenSans-Semibold"
+               HorizontalOptions="Center"
+                VerticalOptions="Start"/>
+
+        <!-- Subtitle -->
+        <Label Text="Ready for today's challenge?"
+               FontSize="24"
+               TextColor="#4B0082"
+               FontFamily="OpenSans-Semibold"
+               HorizontalOptions="Center" VerticalOptions="Start"/>
+
+       
+        <!-- User Name Entry -->
+        <Label Text="Enter your name:" 
+               FontSize="18"
+                FontAttributes="Bold"
+               TextColor="#4B0082"/>
+        <Entry x:Name="UserNameEntry"
+               Placeholder="Username"
+               FontSize="18"
+               BackgroundColor="White"
+               VerticalOptions="FillAndExpand" />
+
+
+        <!-- Age Entry -->
+        <Label Text="Enter your age:" 
+               FontSize="18"
+                FontAttributes="Bold"
+               FontFamily="OpenSans-Semibold"
+               TextColor="#4B0082"/>
+        <Picker x:Name="AgePicker"
+                FontSize="18"
+                FontFamily="OpenSans-Semibold"
+                BackgroundColor="White"
+                VerticalOptions="FillAndExpand">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:Int32}">
+                    <x:Int32>6</x:Int32>
+                    <x:Int32>7</x:Int32>
+                    <x:Int32>8</x:Int32>
+                    <x:Int32>9</x:Int32>
+                    <x:Int32>10</x:Int32>
+                    <x:Int32>11</x:Int32>
+                    <x:Int32>12</x:Int32>
+                    <x:Int32>13</x:Int32>
+                    <x:Int32>14</x:Int32>
+                    <x:Int32>15</x:Int32>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+
+        <!-- Start Button -->
+        <Button Text="Start"
+                FontSize="20"
+                BackgroundColor="#4B0082"
+                FontFamily="OpenSans-Semibold"
+                
+                TextColor="White"
+                CornerRadius="20"
+                WidthRequest="150"
+                HorizontalOptions="Center" 
+                VerticalOptions="End"
+                Clicked="OnStartClicked"/>
+
+    </VerticalStackLayout>
+</ContentPage>

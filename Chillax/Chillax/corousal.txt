@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Chillax.MainPage"
+             Title="Chillax"
+             BackgroundImageSource="Resources/Images/yellowpuzzle.png">
+
+    <!-- Toolbar Items -->
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Edit" Clicked="OnEditProfileClicked" Order="Secondary" Priority="0" />
+        <ToolbarItem Text="Try More" Clicked="OntrymoreClicked" Order="Secondary" Priority="1" />
+    </ContentPage.ToolbarItems>
+
+    <!-- Grid Layout to structure the page -->
+    <Grid RowDefinitions="Auto, *, Auto" Padding="20" VerticalOptions="FillAndExpand">
+
+        <!-- Title Section -->
+        <Frame Grid.Row="0" 
+               x:Name="TitleFrame"
+               CornerRadius="30"
+               Padding="10"
+               BackgroundColor="#6600CC"
+               BorderColor="White"
+               HorizontalOptions="FillAndExpand"
+               VerticalOptions="Start">
+            <Label Text="Welcome to Fun Time!"
+                   FontSize="32"
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   FontAttributes="Bold" />
+        </Frame>
+
+        <!-- CarouselView in the middle section -->
+        <CarouselView Grid.Row="1" 
+                      x:Name="ContentCarousel"
+                      Loop="True" 
+                      VerticalOptions="FillAndExpand" 
+                      Margin="0,10,0,10">
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <!-- Background Image -->
+                        <Image Source="{Binding BackgroundImage}"
+                               Aspect="AspectFill"
+                               Opacity="0.7"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="FillAndExpand" />
+
+                        <!-- Content Overlay -->
+                        <VerticalStackLayout Padding="15"
+                                             VerticalOptions="FillAndExpand"
+                                             HorizontalOptions="FillAndExpand"
+                                             BackgroundColor="#6600CC33">
+                            <!-- Optional Overlay Background -->
+                            <Frame BackgroundColor="Transparent" 
+                                   CornerRadius="20" 
+                                   Padding="15" 
+                                   BorderColor="White"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center">
+                                <Label Text="{Binding Title}" 
+                                       FontSize="24" 
+                                       FontAttributes="Bold" 
+                                       TextColor="White"
+                                       HorizontalOptions="Center" />
+                                <Label Text="{Binding Content}" 
+                                       FontSize="20" 
+                                       TextColor="White"
+                                       HorizontalOptions="Center" 
+                                       VerticalOptions="Center" />
+                            </Frame>
+                        </VerticalStackLayout>
+                    </Grid>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+
+        <!-- Share Button at the bottom -->
+        <Button Grid.Row="2"
+                Text="Share Riddle with Friends"
+                BackgroundColor="OrangeRed"
+                TextColor="White"
+                FontSize="20"
+                CornerRadius="10"
+                Margin="0,10,0,0"
+                Clicked="OnShareRiddleClicked"
+                HorizontalOptions="Fill"
+                VerticalOptions="End" />
+    </Grid>
+</ContentPage>
+using Microsoft.Maui.Controls;
+using System.Collections.Generic;
+namespace Chillax
+{
+    public partial class MainPage : ContentPage
+    {
+        private ContentService contentService;
+
+        public MainPage()
+        {
+            InitializeComponent();
+            contentService = new ContentService();
+           
+            LoadDailyContent();
+           
+
+        }
+        private async void OnProfileButtonClicked(object sender, EventArgs e)
+        {
+            // Navigate to UserProfilePage using the route
+            await Shell.Current.GoToAsync(nameof(UserProfilePage));
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            AnimateElements();
+        }
+        private async void AnimateElements()
+        {
+            // Rotate the title 360 degrees
+            await TitleFrame.RotateTo(360, 3000);
+            await TitleFrame.RotateTo(0, 0);     // Reset the rotation instantly for further animations
+
+            // Rotate each section (riddle, fun fact, puzzle) in sequence
+            //await RiddleLabel.RotateTo(360, 3000);
+            //await RiddleLabel.RotateTo(0, 0);
+
+            //await FunFactLabel.RotateTo(360, 3000);
+            //await FunFactLabel.RotateTo(0, 0);
+
+            //await PuzzleLabel.RotateTo(360, 3000);
+            //await PuzzleLabel.RotateTo(0, 0);
+        }
+
+
+        private async void OnEditProfileClicked(object sender, EventArgs e)
+        {
+            // Navigate to UserProfilePage to allow users to change their details
+            await Navigation.PushAsync(new UserProfilePage());
+        }
+        private async void OntrymoreClicked(object sender, EventArgs e)
+        {
+            List<PageContent> carouselItems = new List<PageContent>
+            {
+                new PageContent { Title = "Today's Riddle", Content = "What has to be broken before you can use it? (Answer: An egg)" },
+                new PageContent { Title = "Fun Fact", Content = "Did you know? Sharks are older than trees!" },
+                new PageContent { Title = "Puzzle", Content = "What comes next: 2, 4, 8, 16, ?" }
+            };
+
+            // Set the ItemsSource for the CarouselView
+            ContentCarousel.ItemsSource = carouselItems;
+
+            var riddle = await contentService.GetRiddleFromApi("10");
+            foreach (var item in riddle)
+            {
+
+                string riddletest = item.Key + " Answer: " + item.Value;
+                string riddleAnswer = item.Value;
+            }
+        }
+
+        private async Task LoadDailyContent()
+        {
+            string userAge = Preferences.Get("age", "7"); // Fetch user's age
+                                                          // Fetch age-appropriate content
+            var riddle = await contentService.GetRiddleFromApi(userAge);
+            // var joke = await contentService.GetJokeFromApi(userAge);
+            // Load today's riddle, fun fact, and puzzle (dummy content for now)
+            // Fetch random content from the database
+
+            //var funFact = await DataManager.GetRandomFunFactForAge(int.Parse(userAge));
+            //var puzzle = await DataManager.GetRandomPuzzleForAge(int.Parse(userAge));
+            // Set the data for the CarouselView
+            // Initialize and set the carousel content
+            List<PageContent> carouselItems = new List<PageContent>
+            {
+                new PageContent { Title = "Today's Riddle", Content = "What has to be broken before you can use it? (Answer: An egg)" , BackgroundImage = "Resources/Images/allfour.png"},
+                new PageContent { Title = "Fun Fact", Content = "Did you know? Sharks are older than trees!" ,BackgroundImage = "Resources/Images/allfour.png"},
+                new PageContent { Title = "Puzzle", Content = "What comes next: 2, 4, 8, 16, ?",BackgroundImage = "Resources/Images/allfour.png" }
+            };
+
+            // Set the ItemsSource for the CarouselView
+            ContentCarousel.ItemsSource = carouselItems;
+            foreach (var item in riddle)
+            {
+
+                string riddletest = item.Key + " Answer: " + item.Value;
+                string riddleAnswer = item.Value;
+            }
+            
+            // In a real app, you could load content from a server or local database
+        }
+        // Simple data model
+        public class PageContent
+        {
+            public string Title { get; set; }
+            public string Content { get; set; }
+            public string BackgroundImage { get; set; }
+        }
+
+        private async void OnShareRiddleClicked(object sender, EventArgs e)
+        {
+            var riddleText = "";//"";
+
+            await Share.RequestAsync(new ShareTextRequest
+            {
+                Text = riddleText,
+                Title = "Share Riddle"
+            });
+        }
+    }
+}
+
+

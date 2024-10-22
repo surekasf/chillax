@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Chillax.MainPage"
+             Title="Chillax"
+             BackgroundImageSource="Resources/Images/yellowpuzzle.png">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Edit" Clicked="OnEditProfileClicked" Order="Secondary" Priority="0" />
+        <ToolbarItem Text="Try More" Clicked="OntrymoreClicked" Order="Secondary" Priority="1" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20" VerticalOptions="FillAndExpand" HorizontalOptions="Center">
+
+            <!-- Title Section -->
+            <Frame x:Name="TitleFrame"
+                   CornerRadius="30"
+                   Padding="10"
+                   BackgroundColor="#6600CC"
+                   BorderColor="White"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Start">
+                <Label Text="Welcome to Fun Time!"
+                       FontSize="32"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       FontAttributes="Bold" />
+            </Frame>
+
+            <!-- Card 1 -->
+            <Frame x:Name="Card1Front" CornerRadius="20" IsVisible="True" 
+                   BackgroundColor="#6600CC" Padding="0" VerticalOptions="CenterAndExpand">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnCardTapped" CommandParameter="1" />
+                </Frame.GestureRecognizers>
+                <Grid>
+                        <Image Source="Resources/Images/riddlecard.png"
+                               Aspect="AspectFill"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="FillAndExpand" 
+                               InputTransparent="True" />
+                        <Label Text="Today's Riddle"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center"
+                               VerticalOptions="End"
+                               Margin="0,0,0,10" />
+                    </Grid>
+                </Frame>
+            <Frame x:Name="Card1Back" CornerRadius="20" IsVisible="False" 
+                    Padding="15" VerticalOptions="CenterAndExpand">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnCardTapped" CommandParameter="1" />
+                </Frame.GestureRecognizers>
+                <Grid>
+                    <Image Source="Resources/Images/purplecardback.png"
+        Aspect="AspectFill"
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand" 
+        InputTransparent="True" />
+                    <Label x:Name="RiddleLabel"
+                       Text="Loading..."
+                        FontSize="24"
+                        FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+                </Grid>
+            </Frame>
+
+            <!-- Card 2 -->
+            <Frame x:Name="Card2Front" CornerRadius="20" IsVisible="True" 
+                   BackgroundColor="#6600CC" Padding="0" VerticalOptions="CenterAndExpand">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnCardTapped" CommandParameter="2" />
+                </Frame.GestureRecognizers>
+
+                <Grid>
+                    <Image Source="Resources/Images/bulbback.png"
+                               Aspect="AspectFill"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="FillAndExpand" InputTransparent="True" />
+                        <Label Text="Fun Fact"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center"
+                               VerticalOptions="End"
+                               Margin="0,0,0,10" />
+                    </Grid>
+                </Frame>
+                <Frame x:Name="Card2Back" CornerRadius="20" IsVisible="False" 
+                    Padding="15" VerticalOptions="CenterAndExpand">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnCardTapped" CommandParameter="2" />
+                </Frame.GestureRecognizers>
+                <Grid>
+                    <Image Source="Resources/Images/purplecardback.png"
+Aspect="AspectFill"
+HorizontalOptions="FillAndExpand"
+VerticalOptions="FillAndExpand" 
+InputTransparent="True" />
+                    <Label x:Name="FunFactLabel"
+                       Text="Loading..."
+                       FontSize="24"
+                        FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+                </Grid>
+            </Frame>
+
+                <!-- Card 3 -->
+            <Frame x:Name="Card3Front" CornerRadius="20" IsVisible="True" 
+                   BackgroundColor="#6600CC" Padding="0" VerticalOptions="CenterAndExpand">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnCardTapped" CommandParameter="3" />
+                </Frame.GestureRecognizers>
+
+                
+                    <Grid>
+                        <Image Source="Resources/Images/puzzle_bg.png"
+                               Aspect="AspectFill"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="FillAndExpand" 
+                               InputTransparent="True" />
+                        <Label Text="Puzzle"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center"
+                               VerticalOptions="End"
+                               Margin="0,0,0,10" />
+                    </Grid>
+                </Frame>
+                <Frame x:Name="Card3Back" CornerRadius="20" IsVisible="False" 
+                   
+                       Padding="15" VerticalOptions="CenterAndExpand">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnCardTapped" CommandParameter="3" />
+                </Frame.GestureRecognizers>
+                <Grid>
+                    <Image Source="Resources/Images/purplecardback.png"
+Aspect="AspectFill"
+HorizontalOptions="FillAndExpand"
+VerticalOptions="FillAndExpand" 
+InputTransparent="True" />
+                    <Label x:Name="PuzzleLabel"
+                       Text="Loading..."
+                        FontSize="24"
+                        FontAttributes="Bold"
+                       TextColor="White"
+                       
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+                </Grid>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
