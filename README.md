@@ -5,7 +5,7 @@
 **A fun app offering puzzles and interesting facts.**
 
 ## Screenshots:
-![Home Screen](./Resources/Images/ss1.png)
+![Home Screen](./blob/main/assets/ss1.png)
 ![Puzzle Page](./images/ss2.png)
 
 ## Features:
