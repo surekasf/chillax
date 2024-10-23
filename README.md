@@ -6,7 +6,10 @@
 
 ## Screenshots:
 ![Home Screen](./assets/ss1.png)
-![Puzzle Page](./images/ss2.png)
+![Puzzle Page](./assets/ss2.png)
+![Fun Page](./assets/ss3.png)
+![tryagain Page](./assets/ss4.png)
+![edit Page](./assets/ss5.png)
 
 ## Features:
 - Daily puzzles to engage users.
